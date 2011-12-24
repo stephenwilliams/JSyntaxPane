@@ -10,6 +10,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * --
+ *
+ * The original .flex file is full of errors. With my inexisting JFlex
+ * knowledge, I try to fix the problems based on the Scala Language
+ * Specification (SLS) v2.9 (published draft May 24, 2011). (H. H. Rutz)
  */
 
 package jsyntaxpane.lexers;
@@ -94,80 +100,73 @@ SingleCharacter = [^\r\n\'\\]
 
 <YYINITIAL> {
 
-  /* keywords */
+  /* keywords, SLS 1.1 */
+  "abstract"       |
+  "case"           |
+  "catch"          |
+  "class"          |
   "def"            |
-  "import"         |
-  "package"        |
-  "if"             |
-  "then"           |
-  "else"           |
-  "while"          |
-  "for"            |
   "do"             |
-  "boolean"        |
-  "int"            |
-  "double"         |
-  "byte"           |
-  "short"          |
-  "char"           |
-  "long"           |
-  "float"          |
-  "unit"           |
-  "val"            |
-  "with"           |
-  "type"           |
-  "var"            |
-  "yield"          |
-  "return"         |
-  "true"           |
+  "else"           |
+  "extends"        |
   "false"          |
+  "final"          |
+  "finally"        |
+  "for"            |
+  "forSome"        |
+  "if"             |
+  "implicit"       |
+  "import"         |
+  "lazy"           |
+  "match"          |
+  "new"            |
   "null"           |
-  "this"           |
-  "super"          |
-  "String"         |
-  "Array"          |
+  "object"         |
+  "override"       |
+  "package"        |
   "private"        |
   "protected"      |
-  "override"       |
-  "abstract"       |
-  "final"          |
+  "return"         |
   "sealed"         |
+  "super"          |
+  "this"           |
   "throw"          |
+  "trait"          |
   "try"            |
-  "catch"          |
-  "finally"        |
-  "extends"        { return token(TokenType.KEYWORD); }
+  "true"           |
+  "type"           |
+  "val"            |
+  "var"            |
+  "while"          |
+  "with"           |
+  "yield"          { return token(TokenType.KEYWORD); }
 
-  /* Java Built in types and wrappers */
-  "object"                       |
+/* "_" ":" "=" "=>" "<-" "<:" "<%" ">:" "#" "@" */
+
+  /* Java Built in types and wrappers XXX Wrong -- doesn't make sense to add a list */
+  "Unit"                         |
   "Boolean"                      |
   "Byte"                         |
-  "Character"                    |
-  "Double"                       |
-  "Float"                        |
-  "Integer"                      |
-  "Object"                       |
+  "Char"                         |
   "Short"                        |
-  "Void"                         |
-  "Class"                        |
-  "Number"                       |
-  "Package"                      |
-  "StringBuffer"                 |
-  "StringBuilder"                |
-  "CharSequence"                 |
-  "Thread"                       |
+  "Int"                          |
+  "Long"                         |
+  "Float"                        |
+  "Double"                       |
+  "Any"                          |
+  "AnyRef"                       |
   "String"                       { return token(TokenType.TYPE); }
 
   /* Some Scala predefines */
-  "println"                      { return token(TokenType.KEYWORD2); }
+/*  "println"                      { return token(TokenType.KEYWORD2); } */
 
   /* Some Java standard Library Types */
-  "Throwable"                    |
+/*  "Throwable"                    |
   "Cloneable"                    |
   "Comparable"                   |
   "Serializable"                 |
   "Runnable"                     { return token(TokenType.TYPE); }
-
+*/
   "WARNING"                      { return token(TokenType.WARNING); }
   "ERROR"                        { return token(TokenType.ERROR); }
 
